@@ -1,27 +1,23 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-image: url('../public/nag_bg.png');
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+}
+
+.body-overlay {
+  position: fixed; /* 画面全体に固定 */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* 半透明の黒 */
+  z-index: -1; /* コンテンツの背後に表示 */
+}
+
+
+@media (max-width: 600px) {
+  body {
+    background-size: contain;
+  }
 }
