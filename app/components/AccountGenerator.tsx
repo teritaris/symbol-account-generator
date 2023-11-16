@@ -1,11 +1,16 @@
 'use client'
-import React, { useState } from 'react';
-import QRCode from 'qrcode.react';
-import { QRCodeGenerator, TransactionQR } from 'symbol-qr-library';
+import React, { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import { Account as symAccount, NetworkType } from "symbol-sdk";
+
+// qrcode.reactはサーバーサイドレンダリングではなく、クライアントサイドでのみレンダリングするように設定
+const QRCode = dynamic(() => import('qrcode.react'), {
+  ssr: false
+});
 
 const AccountGenerator: React.FC = () => {
   const [account, setAccount] = useState<symAccount | null>(null);
+  const [qrData, setQrData] = useState<string | null>(null);
 
   const generateAccount = () => {
     const newAccount = symAccount.generateNewAccount(NetworkType.TEST_NET);
@@ -16,15 +21,20 @@ const AccountGenerator: React.FC = () => {
     navigator.clipboard.writeText(text);
   }
 
-  const generateAccouneQr = (privateKey: string) => {
-    const generationHash = 'ACECD90E7B248E012803228ADB4424F0D966D24149B72E58987D2BF2F2AF03C4';
-    const qr = QRCodeGenerator.createExportAccount(
-      privateKey,
-      NetworkType.TEST_NET,
-      generationHash
-    );
-    return qr;
-  }
+  useEffect(() => {
+    if (account) {
+      const generationHash = 'ACECD90E7B248E012803228ADB4424F0D966D24149B72E58987D2BF2F2AF03C4';
+      import('symbol-qr-library').then((QR) => {
+        const qr = QR.QRCodeGenerator.createExportAccount(
+          account.privateKey,
+          NetworkType.TEST_NET,
+          generationHash
+        );
+        setQrData(qr.toJSON());
+      });
+    }
+  }, [account]); // accountが変更されたときにのみこのエフェクトを実行します
+
 
   return (
     <div style={{ padding: '20px', fontFamily: 'monospace' }}>
@@ -63,7 +73,7 @@ const AccountGenerator: React.FC = () => {
             </button>
           </div>
           <QRCode
-            value={generateAccouneQr(account.privateKey).toJSON()} // ここにあなたのQRコードのデータ
+            value={qrData as string} // ここにあなたのQRコードのデータ
             size={128} // QRコードのサイズを128ピクセルに設定
             level={"Q"} // エラー訂正レベルをQに設定
             includeMargin={true} // 余白を含める
