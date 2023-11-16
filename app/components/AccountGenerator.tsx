@@ -51,7 +51,12 @@ const AccountGenerator: React.FC = () => {
               Copy
             </button>
           </div>
-          <QRCode value={account.address.plain()} />
+          <QRCode
+            value={account.address.plain()} // ここにあなたのQRコードのデータ
+            size={128} // QRコードのサイズを128ピクセルに設定
+            level={"Q"} // エラー訂正レベルをQに設定
+            includeMargin={true} // 余白を含める
+          />
         </div>
       )}
     </div>
