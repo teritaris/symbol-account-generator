@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import QRCode from 'qrcode.react';
+import { QRCodeGenerator, TransactionQR } from 'symbol-qr-library';
 import { Account as symAccount, NetworkType } from "symbol-sdk";
 
 const AccountGenerator: React.FC = () => {
@@ -13,6 +14,16 @@ const AccountGenerator: React.FC = () => {
 
   const handleCopyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
+  }
+
+  const generateAccouneQr = (privateKey: string) => {
+    const generationHash = 'ACECD90E7B248E012803228ADB4424F0D966D24149B72E58987D2BF2F2AF03C4';
+    const qr = QRCodeGenerator.createExportAccount(
+      privateKey,
+      NetworkType.TEST_NET,
+      generationHash
+    );
+    return qr;
   }
 
   return (
@@ -52,7 +63,7 @@ const AccountGenerator: React.FC = () => {
             </button>
           </div>
           <QRCode
-            value={account.address.plain()} // ここにあなたのQRコードのデータ
+            value={generateAccouneQr(account.privateKey).toJSON()} // ここにあなたのQRコードのデータ
             size={128} // QRコードのサイズを128ピクセルに設定
             level={"Q"} // エラー訂正レベルをQに設定
             includeMargin={true} // 余白を含める
