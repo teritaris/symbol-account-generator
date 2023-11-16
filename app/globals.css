@@ -3,7 +3,9 @@ body {
   background-size: cover;
   background-position: top center;
   background-repeat: no-repeat;
+  min-height: 100vh; /* 画面の最小高さをビューポートの高さに */
 }
+
 
 .body-overlay {
   position: fixed; /* 画面全体に固定 */
@@ -12,12 +14,5 @@ body {
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5); /* 半透明の黒 */
-  z-index: -1; /* コンテンツの背後に表示 */
-}
-
-
-@media (max-width: 600px) {
-  body {
-    background-size: contain;
-  }
+  z-index: 0; 
 }
