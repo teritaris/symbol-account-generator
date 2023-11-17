@@ -37,7 +37,7 @@ const AccountGenerator: React.FC = () => {
 
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'monospace' }}>
+    <div style={{ fontFamily: 'monospace', paddingBottom: '100px' /* フッターの高さに応じて調整 */ }}>
       <div style={{ padding: '20px', fontFamily: 'monospace', textAlign: 'center' }}>
         <h1 style={{
           fontSize: '2.5rem', /* 大きめのフォントサイズ */
@@ -81,6 +81,28 @@ const AccountGenerator: React.FC = () => {
           />
         </div>
       )}
+
+          {/* フッターセクション */}
+          <footer style={{
+      position: 'fixed', /* フッターを画面下部に固定 */
+      left: 0,
+      bottom: 0,
+      width: '100%',
+      paddingTop: '10px',
+      paddingBottom: '10px',
+      backgroundColor: 'rgba(0, 0, 0, 0.7)',
+      color: '#fff',
+      textAlign: 'center',
+      zIndex: 10 /* フッターが他の要素よりも上に表示されるように */
+    }}>
+      <a href="https://testnet.symbol.fyi/" style={{ color: '#fff', marginRight: '10px', textDecoration: 'none' }}>
+        Testnet Explorer
+      </a>
+      |
+      <a href="https://testnet.symbol.tools/" style={{ color: '#fff', marginLeft: '10px', textDecoration: 'none' }}>
+        Testnet Faucet
+      </a>
+    </footer>
     </div>
   );
   
