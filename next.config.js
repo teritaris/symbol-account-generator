@@ -8,9 +8,6 @@ const nextConfig = {
   reactStrictMode: true,
   assetPrefix: branchName,
   basePath: branchName,
-  env: {
-    metadataBase: 'localhost:3000',
-  },
   webpack: (config, { isServer }) => {
     if (!isServer) {
       // サーバーサイドでのみcanvasを使用する設定
