@@ -33,7 +33,7 @@ const AccountGenerator: React.FC = () => {
         setQrData(qr.toJSON());
       });
     }
-  }, [account]); // accountが変更されたときにのみこのエフェクトを実行します
+  }, [account]); // accountが変更されたときにのみこのエフェクトを実行
 
 
   return (
@@ -49,7 +49,7 @@ const AccountGenerator: React.FC = () => {
           padding: '10px', /* 内側の余白 */
           borderRadius: '10px' /* 角の丸み */
         }}>
-          Nononon Account Generator
+          Symbol Account Generator
         </h1>
       </div>
       <button onClick={generateAccount}>Generate Account</button>
