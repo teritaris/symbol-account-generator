@@ -69,33 +69,33 @@ const AccountGenerator: React.FC = () => {
       <button onClick={generateAccount}>Generate Account</button>
       {account && (
         <div style={{ background: 'rgba(0, 0, 0, 0.7)', padding: '10px', borderRadius: '5px', color: '#fff' }}>
-        {/* アドレス */}
-        <div style={{ marginBottom: '10px' }}>
-          <p style={{ fontWeight: 'bold' }}>Address:</p>
-          <code style={{ display: 'block', padding: '5px', marginBottom: '5px', wordWrap: 'break-word', overflowWrap: 'break-word' }}>
-            {account.address.plain()}
-          </code>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <button onClick={() => handleCopyToClipboard(account.address.plain(), 'Address')}>
-              Copy
-            </button>
-            {copySuccess === 'Address copied!' && <div style={{ color: 'green', marginLeft: '10px' }}>{copySuccess}</div>}
+          {/* アドレス */}
+          <div style={{ marginBottom: '10px' }}>
+            <p style={{ fontWeight: 'bold' }}>Address:</p>
+            <code style={{ display: 'block', padding: '5px', marginBottom: '5px', wordWrap: 'break-word', overflowWrap: 'break-word' }}>
+              {account.address.plain()}
+            </code>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <button onClick={() => handleCopyToClipboard(account.address.plain(), 'Address')}>
+                Copy
+              </button>
+              {copySuccess === 'Address copied!' && <div style={{ color: 'green', marginLeft: '10px' }}>{copySuccess}</div>}
+            </div>
           </div>
-        </div>
 
-    {/* プライベートキー */}
-    <div style={{ marginBottom: '10px' }}>
-      <p style={{ fontWeight: 'bold' }}>Private Key:</p>
-      <code style={{ display: 'block', padding: '5px', marginBottom: '5px', wordWrap: 'break-word', overflowWrap: 'break-word' }}>
-        {account.privateKey}
-      </code>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <button onClick={() => handleCopyToClipboard(account.privateKey, 'PrivateKey')}>
-          Copy
-        </button>
-        {copySuccess === 'PrivateKey copied!' && <div style={{ color: 'green', marginLeft: '10px' }}>{copySuccess}</div>}
-      </div>
-    </div>
+          {/* プライベートキー */}
+          <div style={{ marginBottom: '10px' }}>
+            <p style={{ fontWeight: 'bold' }}>Private Key:</p>
+            <code style={{ display: 'block', padding: '5px', marginBottom: '5px', wordWrap: 'break-word', overflowWrap: 'break-word' }}>
+              {account.privateKey}
+            </code>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <button onClick={() => handleCopyToClipboard(account.privateKey, 'PrivateKey')}>
+                Copy
+              </button>
+              {copySuccess === 'PrivateKey copied!' && <div style={{ color: 'green', marginLeft: '10px' }}>{copySuccess}</div>}
+            </div>
+          </div>
 
           <QRCode
             value={qrData as string} // ここにあなたのQRコードのデータ
@@ -106,30 +106,30 @@ const AccountGenerator: React.FC = () => {
         </div>
       )}
 
-          {/* フッターセクション */}
-          <footer style={{
-            position: 'fixed', /* フッターを画面下部に固定 */
-            left: 0,
-            bottom: 0,
-            width: '100%',
-            paddingTop: '10px',
-            paddingBottom: '10px',
-            backgroundColor: 'rgba(0, 0, 0, 0.7)',
-            color: '#fff',
-            textAlign: 'center',
-            zIndex: 10 /* フッターが他の要素よりも上に表示されるように */
-          }}>
-      <a href="https://testnet.symbol.fyi/" style={{ color: '#fff', marginRight: '10px', textDecoration: 'none' }} target="_blank">
-        Testnet Explorer
-      </a>
-      |
-      <a href="https://testnet.symbol.tools/" style={{ color: '#fff', marginLeft: '10px', textDecoration: 'none' }} target="_blank">
-        Testnet Faucet
-      </a>
-    </footer>
+      {/* フッターセクション */}
+      <footer style={{
+        position: 'fixed', /* フッターを画面下部に固定 */
+        left: 0,
+        bottom: 0,
+        width: '100%',
+        paddingTop: '10px',
+        paddingBottom: '10px',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        color: '#fff',
+        textAlign: 'center',
+        zIndex: 10 /* フッターが他の要素よりも上に表示されるように */
+      }}>
+        <a href="https://testnet.symbol.fyi/" style={{ color: '#fff', marginRight: '10px', textDecoration: 'none' }} target="_blank">
+          Testnet Explorer
+        </a>
+        |
+        <a href="https://testnet.symbol.tools/" style={{ color: '#fff', marginLeft: '10px', textDecoration: 'none' }} target="_blank">
+          Testnet Faucet
+        </a>
+      </footer>
     </div>
   );
-  
+
 }
 
 export default AccountGenerator;
