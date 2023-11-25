@@ -1,5 +1,5 @@
 import React from 'react';
-import AccountGenerator from './components/AccountGenerator';
+import AccountGenerator from './components/testnet/AccountGenerator';
 import Footer from './components/Footer';
 
 const Home: React.FC = () => {
