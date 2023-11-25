@@ -8,6 +8,11 @@ const QRCode = dynamic(() => import('qrcode.react'), {
   ssr: false
 });
 
+const textStyle = {
+  wordWrap: 'break-word',
+  overflowWrap: 'break-word',
+};
+
 const AccountGenerator: React.FC = () => {
   const [account, setAccount] = useState<symAccount | null>(null);
   const [qrData, setQrData] = useState<string | null>(null);
@@ -67,7 +72,7 @@ const AccountGenerator: React.FC = () => {
         {/* アドレス */}
         <div style={{ marginBottom: '10px' }}>
           <p style={{ fontWeight: 'bold' }}>Address:</p>
-          <code style={{ display: 'block', padding: '5px', marginBottom: '5px' }}>
+          <code style={{ display: 'block', padding: '5px', marginBottom: '5px', wordWrap: 'break-word', overflowWrap: 'break-word' }}>
             {account.address.plain()}
           </code>
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -81,7 +86,7 @@ const AccountGenerator: React.FC = () => {
     {/* プライベートキー */}
     <div style={{ marginBottom: '10px' }}>
       <p style={{ fontWeight: 'bold' }}>Private Key:</p>
-      <code style={{ display: 'block', padding: '5px', marginBottom: '5px' }}>
+      <code style={{ display: 'block', padding: '5px', marginBottom: '5px', wordWrap: 'break-word', overflowWrap: 'break-word' }}>
         {account.privateKey}
       </code>
       <div style={{ display: 'flex', alignItems: 'center' }}>
