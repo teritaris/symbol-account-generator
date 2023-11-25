@@ -9,11 +9,12 @@ const inter = Inter({ subsets: ['latin'] })
 //   description: 'Tools to generate a Symbol account.',
 
 // }
-const siteName= 'サイト名';
-const description = 'サイトの説明';
+const siteName= 'Symbol Account Generator';
+const description = 'Tools to generate a Symbol account.';
 const url = 'https://symbol.account-generator.teritaris.net';
 
 export const metadata = {
+  metadataBase: new URL(url),
   title: {
     default: siteName,
     /** `next-seo`の`titleTemplate`に相当する機能 */
@@ -32,8 +33,8 @@ export const metadata = {
     card: 'summary_large_image',
     title: siteName,
     description,
-    site: '@サイト用アカウントのTwitterID',
-    creator: '@作者のTwitterID',
+    // site: '@サイト用アカウントのTwitterID',
+    creator: '@subarumanSP',
   },
   verification: {
     google: 'サーチコンソールのやつ',
