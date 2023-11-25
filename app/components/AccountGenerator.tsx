@@ -11,14 +11,23 @@ const QRCode = dynamic(() => import('qrcode.react'), {
 const AccountGenerator: React.FC = () => {
   const [account, setAccount] = useState<symAccount | null>(null);
   const [qrData, setQrData] = useState<string | null>(null);
+  const [copySuccess, setCopySuccess] = useState('');
 
   const generateAccount = () => {
     const newAccount = symAccount.generateNewAccount(NetworkType.TEST_NET);
     setAccount(newAccount);
   }
 
-  const handleCopyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
+  const handleCopyToClipboard = (text: string, type: 'Address' | 'PrivateKey') => {
+    navigator.clipboard.writeText(text)
+      .then(() => {
+        setCopySuccess(`${type} copied!`);
+        setTimeout(() => setCopySuccess(''), 2000); // 2秒後にメッセージをクリア
+      })
+      .catch(err => {
+        // エラーハンドリングをここに追加
+        console.error('Failed to copy: ', err);
+      });
   }
 
   useEffect(() => {
@@ -55,24 +64,34 @@ const AccountGenerator: React.FC = () => {
       <button onClick={generateAccount}>Generate Account</button>
       {account && (
         <div style={{ background: 'rgba(0, 0, 0, 0.7)', padding: '10px', borderRadius: '5px', color: '#fff' }}>
-          <div style={{ marginBottom: '10px' }}>
-            <p style={{ fontWeight: 'bold' }}>Address:</p>
-            <code style={{ display: 'block', padding: '5px', wordWrap: 'break-word', overflowWrap: 'break-word' }}>
-              {account.address.plain()}
-            </code>
-            <button onClick={() => handleCopyToClipboard(account.address.plain())}>
+        {/* アドレス */}
+        <div style={{ marginBottom: '10px' }}>
+          <p style={{ fontWeight: 'bold' }}>Address:</p>
+          <code style={{ display: 'block', padding: '5px', marginBottom: '5px' }}>
+            {account.address.plain()}
+          </code>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <button onClick={() => handleCopyToClipboard(account.address.plain(), 'Address')}>
               Copy
             </button>
+            {copySuccess === 'Address copied!' && <div style={{ color: 'green', marginLeft: '10px' }}>{copySuccess}</div>}
           </div>
-          <div style={{ marginBottom: '10px' }}>
-            <p style={{ fontWeight: 'bold' }}>Private Key:</p>
-            <code style={{ display: 'block', padding: '5px', wordWrap: 'break-word', overflowWrap: 'break-word' }}>
-              {account.privateKey}
-            </code>
-            <button onClick={() => handleCopyToClipboard(account.privateKey)}>
-              Copy
-            </button>
-          </div>
+        </div>
+
+    {/* プライベートキー */}
+    <div style={{ marginBottom: '10px' }}>
+      <p style={{ fontWeight: 'bold' }}>Private Key:</p>
+      <code style={{ display: 'block', padding: '5px', marginBottom: '5px' }}>
+        {account.privateKey}
+      </code>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <button onClick={() => handleCopyToClipboard(account.privateKey, 'PrivateKey')}>
+          Copy
+        </button>
+        {copySuccess === 'PrivateKey copied!' && <div style={{ color: 'green', marginLeft: '10px' }}>{copySuccess}</div>}
+      </div>
+    </div>
+
           <QRCode
             value={qrData as string} // ここにあなたのQRコードのデータ
             size={128} // QRコードのサイズを128ピクセルに設定
